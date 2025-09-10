@@ -1,0 +1,2746 @@
+╭────────────────────────────────────────────────────╮
+│ ✻ Welcome to Claude Code!                          │
+│                                                    │
+│   /help for help, /status for your current setup   │
+│                                                    │
+│   cwd: /home/zippermonkey/Projects/oomd/rust-oomd  │
+│                                                    │
+│   ──────────────────────────────────────────────── │
+│                                                    │
+│   Overrides (via env):                             │
+│                                                    │
+│   • API timeout: 3000000ms                         │
+│   • API Base URL:                                  │
+│   https://open.bigmodel.cn/api/anthropic           │
+╰────────────────────────────────────────────────────╯
+
+> /init is analyzing your codebase… 
+
+● I'll analyze the codebase to understand its structure and create a
+   comprehensive CLAUDE.md file.
+
+● Task(Analyze codebase structure)
+  ⎿  Done (20 tool uses · 40.0k tokens · 2m 4.1s)                  
+
+● Read(~/Projects/oomd/README.md)
+  ⎿  Read 101 lines (ctrl+r to expand)
+
+● Read(~/Projects/oomd/CONTRIBUTING.md)
+  ⎿  Read 41 lines (ctrl+r to expand)
+
+● Search(pattern: "**/.cursorrules")
+  ⎿  Found 0 files 
+
+● Search(pattern: "**/.cursor/**")
+  ⎿  Found 0 files 
+
+● Search(pattern: "**/.github/copilot-instructions.md")
+  ⎿  Found 0 files 
+
+● Read(~/Projects/oomd/.clang-format)
+  ⎿  Read 88 lines (ctrl+r to expand)
+
+● Read(~/Projects/oomd/meson.build)
+  ⎿  Read 185 lines (ctrl+r to expand)
+
+● Search(pattern: "CLAUDE.md")
+  ⎿  Found 0 files 
+
+● Now I'll create the CLAUDE.md file with the comprehensive
+  information gathered:
+
+● Write(~/Projects/oomd/CLAUDE.md)
+  ⎿  Wrote 93 lines to ../CLAUDE.md                                
+     # CLAUDE.md
+     This file provides guidance to Claude Code (claude.ai/code)
+     when working with code in this repository.
+     ## Build System and Commands
+     **Build System**: Meson
+     ```bash
+     # Build the project
+     meson build
+     … +83 lines (ctrl+r to expand)
+
+● Created CLAUDE.md with comprehensive guidance for working with the
+   oomd codebase, including build commands, architecture overview,
+  and development standards.
+
+> 这个程序的主要作用是什么
+
+● oomd (Out-Of-Memory daemon)
+  是一个用户空间的内存管理守护进程，主要作用包括：
+
+  核心功能
+
+  预防性内存管理 -
+  在内核OOM发生之前主动监控和干预，避免系统长时间卡顿
+
+  灵活的进程终止策略 -
+  通过插件系统提供可配置的进程终止规则，比内核OOM killer更灵活
+
+  PSI监控 - 利用Linux内核的Pressure Stall
+  Information接口监控内存压力
+
+  主要优势
+
+  避免内核空间阻塞 - 传统OOM
+  killer可能在内核空间花费大量时间换页，导致系统30分钟以上的无响应
+
+  工作负载定制化 - 不同工作负载可以设置自定义的保护规则和终止策略
+
+  生产环境验证 - 在Facebook/Meta大规模环境中经过实战检验
+
+  工作原理
+
+  1. 监控系统内存压力指标
+  2. 根据配置的规则评估是否需要干预
+  3. 在内存耗尽前主动终止选择的进程
+  4. 通过systemd服务集成到系统管理中
+
+  这是一个为高可靠性Linux环境设计的生产级内存管理解决方案。
+
+> 对项目下的主要的源文件做一个说明, 将说明写入到一个文档中
+
+● Task(分析主要源文件)
+  ⎿  Done (25 tool uses · 86.0k tokens · 2m 16.9s)                 
+
+● Write(~/Projects/oomd/SOURCE_FILES.md)
+  ⎿  Wrote 417 lines to ../SOURCE_FILES.md                         
+     # oomd 项目源文件说明文档
+     ## 项目概述
+     oomd (Out of Memory Daemon)
+     是一个用户空间的内存管理守护进程，通过监控Linux系统的内存压力并
+     在内核OOM发生之前主动干预，避免系统长时间卡顿。
+     ## 核心架构
+     ### 1. 主入口和核心类 (src/oomd/)
+     … +407 lines (ctrl+r to expand)
+
+● 已创建详细的源文件说明文档
+  SOURCE_FILES.md，包含了oomd项目中所有主要源文件的完整说明，涵盖：
+
+  主要内容包括：
+
+  1. 项目概述 - oomd的功能和作用
+  2. 核心架构 - 11个主要模块的详细说明
+  3. 每个重要文件的功能描述和作用
+  4. 模块依赖关系 - 完整的依赖层次图
+  5. 数据流向 - 运行时数据流分析
+  6. 关键设计特点 - 插件化、性能优化、配置管理等
+
+  重点模块说明：
+
+  - 主入口和核心类 - Main.cpp, Oomd.cpp
+  - 上下文管理系统 - OomdContext, CgroupContext
+  - 引擎和规则系统 - Engine, Ruleset, DetectorGroup
+  - 插件系统 - 检测器和动作插件的详细说明
+  - 配置系统 - JSON配置的编译和解析
+  - 工具类库 - 文件系统操作和通用工具
+  - 插件注册系统 - 动态插件加载机制
+
+  文档提供了完整的代码架构理解，有助于快速掌握项目结构和各模块功能。
+
+> /status 
+  ⎿  (no content)
+
+> /cost 
+  ⎿ Total cost:            $1.15
+    Total duration (API):  6m 40.7s
+    Total duration (wall): 10m 42.9s
+    Total code changes:    510 lines added, 0 lines removed
+    Usage by model:
+           claude-sonnet:  151.5k input, 21.1k output, 1.3m cache read, 
+    0 cache write
+
+> 我想要编写一个新的插件, 该插件的类型是detector, 
+  当cgroup的内存压力大于 阈值 的时候进行触发
+
+● 我来帮你编写一个新的detector插件。让我先创建一个任务计划来跟踪这个
+  开发过程。
+
+● 让我先分析现有的detector插件结构来了解最佳实践：
+
+● Read(~/Projects/oomd/src/oomd/plugins/PressureAbove.h)
+  ⎿  Read 54 lines (ctrl+r to expand)
+
+● Read(~/Projects/oomd/src/oomd/plugins/PressureAbove.cpp)
+  ⎿  Read 120 lines (ctrl+r to expand)
+
+● Read(~/Projects/oomd/src/oomd/include/Types.h)
+  ⎿  Read 114 lines (ctrl+r to expand)
+
+● 现在我了解了detector插件的结构。让我继续查看另一个类似的插件来获得
+  更完整的理解：
+
+● Read(~/Projects/oomd/src/oomd/plugins/MemoryAbove.h)
+  ⎿  Read 53 lines (ctrl+r to expand)
+
+● 基于对现有detector插件的分析，我现在设计一个新的MemoryPressureThre
+  shold插件。这个插件将：
+
+  插件设计
+
+  功能: 当cgroup的内存压力超过指定阈值时触发
+  配置参数:
+  - cgroup: 要监控的cgroup路径
+  - threshold: 压力阈值 (0-100)
+  - duration: 持续时间 (秒)
+  - pressure_type: 压力类型 (10s, 60s, 300s)
+
+  现在开始实现：
+
+● Write(~/Projects/oomd/src/oomd/plugins/MemoryPressureThreshold.h)
+  ⎿  Wrote 65 lines to ../src/oomd/plugins/MemoryPressureThreshold.
+
+     /*
+      * Copyright (C) 2018-present, Facebook, Inc.
+      *
+      * This program is free software; you can redistribute it 
+     and/or modify
+      * it under the terms of the GNU General Public License as 
+     published by
+      * the Free Software Foundation; version 2 of the License.
+      *
+      * This program is distributed in the hope that it will be 
+     useful,
+      * but WITHOUT ANY WARRANTY; without even the implied warranty 
+     of
+      * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+     the
+     … +55 lines (ctrl+r to expand)
+
+● Write(~/Projects/oomd/src/oomd/plugins/MemoryPressureThreshold.cpp)
+  ⎿  Wrote 216 lines to                                            
+     ../src/oomd/plugins/MemoryPressureThreshold.cpp
+     /*
+      * Copyright (C) 2018-present, Facebook, Inc.
+      *
+      * This program is free software; you can redistribute it 
+     and/or modify
+      * it under the terms of the GNU General Public License as 
+     published by
+      * the Free Software Foundation; version 2 of the License.
+      *
+      * This program is distributed in the hope that it will be 
+     useful,
+      * but WITHOUT ANY WARRANTY; without even the implied warranty 
+     of
+      * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+     the
+     … +206 lines (ctrl+r to expand)
+
+● 现在需要更新构建系统配置，将新插件添加到meson.build中：
+
+● Read(~/Projects/oomd/meson.build)
+  ⎿  Read 20 lines (ctrl+r to expand)
+
+● Update(~/Projects/oomd/meson.build)
+  ⎿  Updated ../meson.build with 2 additions                 
+       58        src/oomd/plugins/KillSwapUsage.cpp
+       59        src/oomd/plugins/KillPgScan.cpp
+       60        src/oomd/plugins/KillPressure.cpp
+       61 +      src/oomd/plugins/MemoryPressureThreshold.cpp
+       62 +      src/oomd/plugins/KillPressure.cpp
+       63        src/oomd/util/Fs.cpp
+       64        src/oomd/util/Util.cpp
+       65        src/oomd/util/PluginArgParser.cpp
+
+● 我注意到出现了重复的行，让我修复这个问题：
+
+● Read(~/Projects/oomd/meson.build)
+  ⎿  Read 15 lines (ctrl+r to expand)
+
+● Update(~/Projects/oomd/meson.build)
+  ⎿  Updated ../meson.build with 1 removal                   
+       59        src/oomd/plugins/KillPgScan.cpp
+       60        src/oomd/plugins/KillPressure.cpp
+       61        src/oomd/plugins/MemoryPressureThreshold.cpp
+       62 -      src/oomd/plugins/KillPressure.cpp
+       62        src/oomd/util/Fs.cpp
+       63        src/oomd/util/Util.cpp
+       64        src/oomd/util/PluginArgParser.cpp
+
+● 现在创建一个简单的测试配置文件来演示如何使用新插件：
+
+● Write(~/Projects/oomd/memory_pressure_threshold_example.json)
+  ⎿  Wrote 44 lines to ../memory_pressure_threshold_example.json
+     {
+       "plugins": [
+         {
+           "name": "memory_pressure_detector",
+           "plugin": "memory_pressure_threshold",
+           "args": {
+             "cgroup": "workload.slice",
+             "threshold": 60,
+             "duration": 30,
+             "pressure_type": "10s",
+     … +34 lines (ctrl+r to expand)
+
+● 现在让我创建一个使用说明文档：
+
+● Write(~/Projects/oomd/MemoryPressureThreshold_PLUGIN.md)
+  ⎿  Wrote 233 lines to ../MemoryPressureThreshold_PLUGIN.md       
+     # MemoryPressureThreshold Plugin
+     ## 概述
+     MemoryPressureThreshold 是一个detector类型的插件，用于监控cgrou
+     p的内存压力，当内存压力超过指定阈值并持续一定时间时触发。
+     ## 功能特性
+     - 监控指定cgroup的内存压力
+     - 支持三种时间窗口的压力检测：10秒、60秒、300秒
+     … +223 lines (ctrl+r to expand)
+
+● 现在让我测试一下构建是否正常：
+
+● Bash(meson build)
+  ⎿  No (tell Claude what to do differently)
+
+> 我想创建一个和这个oomd功能相似的程序,并且支持cgroup v1 , 
+  我想使用rust重构, 你能够给我一些使用rust重构的注意事项吗
+  ⎿  Interrupted by user
+
+> 我仔细阅读了这个项目的代码, 发现他只能支持cgroup v2, 
+  我想对其添加cgroup v1的支持,并使用rust进行重构, 你认为可行吗
+
+● 用户想要对oomd项目进行重构，添加cgroup v1支持并使用Rust语言。这是
+  一个很有意义的任务，让我分析一下可行性和需要注意的事项。
+
+  首先让我分析当前项目的架构和关键功能，然后评估Rust重构的可行性。
+
+● 用户想要对oomd项目进行重构，添加cgroup v1支持并使用Rust语言。这是
+  一个很有意义的任务，让我分析一下可行性和需要注意的事项。
+
+  首先让我分析当前项目的架构和关键功能，然后评估Rust重构的可行性。
+
+● 让我先分析当前项目对cgroup的依赖情况：
+
+● Search(pattern: "cgroup|psi|pressure", glob: "**/*.cpp")
+  ⎿  Found 39 files (ctrl+r to expand)
+
+● 让我查看核心的cgroup相关文件：
+
+● Read(~/Projects/oomd/src/oomd/util/Fs.cpp)
+  ⎿  Read 50 lines (ctrl+r to expand)
+
+● 让我查看关键的PSI和内存压力相关代码：
+
+● Search(pattern: "memory\.pressure|psi|mem_pressure", glob: "**/*.cpp",
+         output_mode: "content")
+  ⎿  Found 308 lines (ctrl+r to expand)
+
+● 现在让我查看关键的Fs.cpp文件中PSI相关的实现：
+
+● Search(pattern: "getPressure|readPressure|psi", glob:
+        "src/oomd/util/Fs.cpp", output_mode: "content")
+  ⎿  Found 0 lines 
+
+● 让我查看Fs类中与压力相关的方法：
+
+● Search(pattern: "Pressure|pressure", glob: "src/oomd/util/Fs.cpp",
+        output_mode: "content")
+  ⎿  Found 151 lines (ctrl+r to expand)
+
+● 让我查看Fs.h中的相关定义：
+
+● Search(pattern: "PressureType|kMemPressureFile|kIoPressureFile", glob:
+         "src/oomd/util/Fs.h", output_mode: "content")
+  ⎿  Found 73 lines (ctrl+r to expand)
+
+● 基于对oomd项目的深入分析，我可以明确地告诉你：使用Rust重构并添加cg
+  roup v1支持是完全可行的！
+
+  让我详细分析关键差异和重构策略：
+
+  当前oomd对cgroup的依赖分析
+
+  现有项目主要依赖：
+  - PSI (Pressure Stall Information): /proc/pressure/memory,
+  /proc/pressure/io
+  - cgroup v2接口: memory.pressure, memory.current, io.pressure等
+  - 文件系统操作: 通过Fs类封装所有cgroup文件访问
+
+● Cgroup v1 vs v2 关键差异
+
+  | 特性    | Cgroup v1             | Cgroup v2       | Rust重构策略
+     |
+  |-------|-----------------------|-----------------|------------|
+  | 内存压力  | 无原生PSI支持              | memory.pressure |
+  需要实现v1代理机制 |
+  | PSI接口 | 仅/proc/pressure/*     | 系统级 + cgroup级   |
+  统一抽象层      |
+  | 内存限制  | memory.limit_in_bytes | memory.max      |
+  版本检测适配     |
+  | 内存使用  | memory.usage_in_bytes | memory.current  | 统一接口
+       |
+  | IO控制  | blkio.*               | io.*            | 双套接口支持
+       |
+  | 层次结构  | 多层次挂载                 | 单一统一层次          |
+   抽象路径解析     |
+  | 进程管理  | tasks文件               | cgroup.procs    |
+  适配层处理      |
+
+  Rust重构架构方案
+
+● // 核心架构设计
+  pub mod core {
+      pub trait CgroupInterface {
+          fn get_memory_pressure(&self) -> Result<ResourcePressure>;
+          fn get_memory_usage(&self) -> Result<u64>;
+          fn get_io_pressure(&self) -> Result<ResourcePressure>;
+          fn get_pids(&self) -> Result<Vec<pid_t>>;
+      }
+
+      pub enum CgroupVersion {
+          V1 { memory: PathBuf, blkio: PathBuf },
+          V2 { unified: PathBuf },
+      }
+
+      pub struct UnifiedCgroupManager {
+          version: CgroupVersion,
+          // 统一接口实现
+      }
+  }
+
+  // 插件系统 (使用trait对象)
+  pub mod plugins {
+      pub trait DetectorPlugin: Send + Sync {
+          fn detect(&self, ctx: &OomdContext) -> Result<bool>;
+          fn name(&self) -> &str;
+      }
+
+      pub trait ActionPlugin: Send + Sync {
+          fn act(&self, ctx: &OomdContext) -> Result<()>;
+          fn name(&self) -> &str;
+      }
+  }
+
+  Cgroup v1/v2 兼容策略
+
+● 1. 自动版本检测
+
+  impl CgroupManager {
+      pub fn detect_version() -> Result<CgroupVersion> {
+          // 检查 /sys/fs/cgroup/cgroup.controllers
+          // 检查 /sys/fs/cgroup/memory/cgroup.controllers
+          // 智能判断当前系统支持的cgroup版本
+      }
+  }
+
+  2. 内存压力代理 (v1关键实现)
+
+  // Cgroup v1没有内存压力，需要基于以下指标估算：
+  // - memory.usage_in_bytes vs memory.limit_in_bytes
+  // - vmstat数据 (pgscan, pgsteal)
+  // - /proc/pressure/memory (系统级)
+
+  impl CgroupV1Interface {
+      fn estimate_memory_pressure(&self) -> Result<ResourcePressure>
+   {
+          let usage = self.read_memory_usage()?;
+          let limit = self.read_memory_limit()?;
+          let usage_ratio = usage as f64 / limit as f64;
+
+          // 结合系统级PSI和cgroup使用率估算
+          let system_psi = self.read_system_psi()?;
+          let estimated_psi = system_psi * usage_ratio;
+
+          Ok(ResourcePressure::from_system_psi(estimated_psi))
+      }
+  }
+
+  Rust重构注意事项
+
+● 🚀 关键技术优势
+
+  1. 内存安全: Rust的所有权系统完美避免C++中的内存泄漏和悬垂指针
+  2. 并发安全: 无需锁的并发设计，提高性能
+  3. 错误处理: Result类型系统比C++异常更可靠
+  4. 零成本抽象: 性能等同于C++
+
+  ⚠️ 重要注意事项
+
+  1. PSI支持限制
+
+  - Cgroup v1 没有原生PSI支持
+  - 需要基于系统级PSI + cgroup使用率进行估算
+  - 精度会低于原生v2支持
+
+  2. 文件系统操作复杂性
+
+  // 推荐使用以下crate:
+  use nix::sys::statfs;        // 文件系统检测
+  use procfs;                 // /proc文件系统解析
+  use serde_json;             // JSON配置解析
+  use anyhow;                // 错误处理
+  use tokio;                 // 异步运行时 (如需要)
+
+  3. 内核版本兼容性
+
+  // 检查内核版本支持
+  const MIN_KERNEL_VERSION: (u32, u32) = (4, 20); // PSI支持
+
+  fn check_kernel_compatibility() -> Result<()> {
+      let utsname = nix::sys::utsname::uname()?;
+      // 解析内核版本并检查
+  }
+
+  4. 性能优化要点
+
+  - 使用mio或epoll进行高效文件监控
+  - 实现cgroup数据缓存机制
+  - 避免频繁的系统调用
+
+  5. 配置兼容性
+
+  - 保持与原oomd JSON配置的兼容性
+  - 使用serde实现配置反序列化
+  - 支持v1/v2特定配置项
+
+  📋 推荐实施路径
+
+  1. 阶段1: 实现基础cgroup v2支持
+  2. 阶段2: 添加v1兼容层
+  3. 阶段3: 实现插件系统
+  4. 阶段4: 性能优化和测试
+
+  🎯 可行性结论
+
+  完全可行且具有显著优势:
+
+  - ✅ 技术可行性: Rust有成熟的系统编程生态
+  - ✅ 性能保证: 零成本抽象，性能不输C++
+  - ✅ 安全性: 内存安全避免整类bug
+  - ✅ 维护性: 更好的包管理和错误处理
+  - ✅ 兼容性: 可以实现v1/v2统一接口
+
+  这个重构项目不仅能解决cgroup v1的兼容性问题，还能提升代码质量和维
+  护性。建议逐步实施，先实现v2支持，再添加v1兼容层。
+
+> 我没有编写大型项目的经验(这个项目对我而言是大型项目了), 
+  我需要你对我进行指导, 如何使用rust重构并支持cgroup v1
+  ,我的第一个问题是:你认为整个项目的结构应该如何规划  (
+  @SOURCE_FILES.md 附上原来项目的文档)
+
+● 非常好的问题！对于大型项目的结构规划，我会给你一个详细的Rust重构方
+  案。基于我对原项目的分析，建议采用以下架构：
+
+  🏗️ Rust重构项目结构规划
+
+  rust-oomd/
+  ├── Cargo.toml                    # 主项目配置
+  ├── Cargo.lock                    # 依赖锁定文件
+  ├── LICENSE                       # GPL v2.0
+  ├── README.md                     # 项目说明
+  ├── examples/                     # 配置示例
+  │   ├── memory_pressure_threshold.json
+  │   └── desktop.json
+  ├── src/                          # 主要源代码
+  │   ├── main.rs                   # 程序入口点
+  │   ├── lib.rs                    # 库入口，导出公共API
+  │   │
+  │   ├── core/                     # 核心模块
+  │   │   ├── mod.rs
+  │   │   ├── engine.rs             # 规则引擎
+  │   │   ├── context.rs            # 上下文管理
+  │   │   ├── config.rs             # 配置管理
+  │   │   └── stats.rs              # 统计信息
+  │   │
+  │   ├── cgroup/                   # Cgroup抽象层 (关键模块!)
+  │   │   ├── mod.rs
+  │   │   ├── version.rs            # 版本检测(v1/v2)
+  │   │   ├── interface.rs          # 统一cgroup接口
+  │   │   ├── v1.rs                 # cgroup v1实现
+  │   │   ├── v2.rs                 # cgroup v2实现
+  │   │   ├── pressure.rs           # 压力计算(含v1估算)
+  │   │   └── manager.rs           # cgroup管理器
+  │   │
+  │   ├── plugins/                  # 插件系统
+  │   │   ├── mod.rs
+  │   │   ├── registry.rs           # 插件注册
+  │   │   ├── base.rs               # 插件基础trait
+  │   │   ├── detector/             # 检测器插件
+  │   │   │   ├── mod.rs
+  │   │   │   ├── memory_above.rs
+  │   │   │   ├── pressure_above.rs
+  │   │   │   └── memory_pressure_threshold.rs
+  │   │   └── action/               # 动作插件
+  │   │       ├── mod.rs
+  │   │       ├── kill_memory_growth.rs
+  │   │       ├── memory_reclaim.rs
+  │   │       └── continue_plugin.rs
+  │   │
+  │   ├── util/                     # 工具模块
+  │   │   ├── mod.rs
+  │   │   ├── fs.rs                 # 文件系统操作
+  │   │   ├── error.rs              # 错误类型定义
+  │   │   ├── parser.rs             # 参数解析
+  │   │   └── logging.rs            # 日志系统
+  │   │
+  │   ├── config/                   # 配置解析
+  │   │   ├── mod.rs
+  │   │   ├── parser.rs             # JSON配置解析
+  │   │   ├── compiler.rs           # 配置编译
+  │   │   └── types.rs              # 配置类型定义
+  │   │
+  │   ├── systemd/                  # 系统集成(可选)
+  │   │   ├── mod.rs
+  │   │   ├── plugin.rs             # systemd插件
+  │   │   └── interface.rs           # systemd接口
+  │   │
+  │   └── cli/                      # 命令行接口
+  │       ├── mod.rs
+  │       └── args.rs               # 参数解析
+  │
+  ├── tests/                        # 集成测试
+  │   ├── integration.rs
+  │   ├── cgroup_tests.rs
+  │   └── plugin_tests.rs
+  │
+  ├── benches/                       # 性能测试
+  │   ├── cgroup_bench.rs
+  │   └── engine_bench.rs
+  │
+  └── docs/                         # 文档
+      ├── ARCHITECTURE.md           # 架构设计
+      ├── CGROUP_V1_SUPPORT.md      # cgroup v1支持说明
+      ├── PLUGIN_DEVELOPMENT.md     # 插件开发指南
+      └── MIGRATION_GUIDE.md        # 迁移指南
+
+  📋 推荐的依赖管理 (Cargo.toml)
+
+  [package]
+  name = "rust-oomd"
+  version = "0.1.0"
+  edition = "2021"
+  license = "GPL-2.0"
+  authors = ["Your Name <your.email@example.com>"]
+  description = "A userspace Out-Of-Memory daemon with cgroup v1/v2 
+  support"
+
+  [dependencies]
+  # 基础依赖
+  anyhow = "1.0"                    # 错误处理
+  thiserror = "1.0"                 # 自定义错误类型
+  serde = { version = "1.0", features = ["derive"] }
+  serde_json = "1.0"                # JSON配置解析
+  tokio = { version = "1.0", features = ["full"] }  # 异步运行时
+
+  # 系统编程
+  nix = "0.27"                      # Linux系统调用
+  libc = "0.2"                      # C标准库绑定
+  procfs = "0.15"                   # /proc文件系统解析
+
+  # 文件系统和监控
+  notify = "6.1"                    # 文件系统监控
+  walkdir = "2.4"                   # 文件遍历
+  glob = "0.3"                      # 路径匹配
+
+  # 日志和调试
+  log = "0.4"
+  env_logger = "0.10"
+  tracing = "0.1"
+  tracing-subscriber = "0.3"
+
+  # 并发和性能
+  crossbeam = "0.8"                 # 无锁数据结构
+  parking_lot = "0.12"              # 高效锁
+  rayon = "1.7"                     # 并行迭代
+
+  # 时间处理
+  chrono = { version = "0.4", features = ["serde"] }
+  humantime = "2.1"                 # 时间解析
+
+  # 命令行
+  clap = { version = "4.4", features = ["derive"] }
+
+  # 配置
+  config = "0.13"                   # 配置文件支持
+  toml = "0.8"                      # TOML支持(可选)
+
+  # 测试依赖
+  [dev-dependencies]
+  tempfile = "3.7"                  # 临时文件
+  mockall = "0.11"                  # Mock生成
+  criterion = "0.5"                 # 性能测试
+
+  # 特性开关
+  [features]
+  default = ["v2", "v1"]
+  v1 = []                           # cgroup v1支持
+  v2 = []                           # cgroup v2支持
+  systemd = ["libsystemd"]           # systemd集成
+  benchmarking = ["criterion"]
+
+  🎯 核心架构设计原则
+
+  1. 分层架构
+
+  // 核心层 - 不依赖具体实现
+  pub mod core {
+      pub trait Engine;
+      pub trait Context;
+      pub trait Config;
+  }
+
+  // 抽象层 - 定义接口
+  pub mod cgroup {
+      pub trait CgroupInterface;
+      pub enum CgroupVersion;
+  }
+
+  // 实现层 - 具体实现
+  pub mod cgroup {
+      pub struct V1Interface;
+      pub struct V2Interface;
+      pub struct HybridManager;
+  }
+
+  2. 插件系统设计
+
+  // src/plugins/base.rs
+  pub trait DetectorPlugin: Send + Sync {
+      fn name(&self) -> &str;
+      fn init(&mut self, args: &PluginArgs) -> Result<()>;
+      fn detect(&self, ctx: &OomdContext) -> Result<PluginRet>;
+      fn prerun(&mut self, ctx: &OomdContext) -> Result<()>;
+  }
+
+  pub trait ActionPlugin: Send + Sync {
+      fn name(&self) -> &str;
+      fn init(&mut self, args: &PluginArgs) -> Result<()>;
+      fn act(&self, ctx: &OomdContext) -> Result<()>;
+      fn prerun(&mut self, ctx: &OomdContext) -> Result<()>;
+  }
+
+  3. Cgroup统一接口设计
+
+  // src/cgroup/interface.rs
+  use anyhow::Result;
+
+  #[derive(Debug, Clone, PartialEq)]
+  pub enum CgroupVersion {
+      V1 { memory: PathBuf, cpu: PathBuf, blkio: PathBuf },
+      V2 { unified: PathBuf },
+      Hybrid { v1_root: PathBuf, v2_root: PathBuf },
+  }
+
+  #[derive(Debug, Clone)]
+  pub struct ResourcePressure {
+      pub sec_10: f32,
+      pub sec_60: f32,
+      pub sec_300: f32,
+      pub total: Option<std::time::Duration>,
+  }
+
+  pub trait CgroupInterface: Send + Sync {
+      fn version(&self) -> CgroupVersion;
+      fn get_memory_pressure(&self, cgroup: &CgroupPath) ->
+  Result<ResourcePressure>;
+      fn get_memory_usage(&self, cgroup: &CgroupPath) ->
+  Result<u64>;
+      fn get_memory_limit(&self, cgroup: &CgroupPath) ->
+  Result<u64>;
+      fn get_io_pressure(&self, cgroup: &CgroupPath) ->
+  Result<ResourcePressure>;
+      fn get_pids(&self, cgroup: &CgroupPath) -> Result<Vec<pid_t>>;
+      fn list_cgroups(&self, pattern: &str) ->
+  Result<Vec<CgroupPath>>;
+      fn write_memory_reclaim(&self, cgroup: &CgroupPath, amount:
+  u64) -> Result<()>;
+  }
+
+  🚀 实施建议
+
+  阶段1: 基础框架搭建 (1-2周)
+
+  1. 创建项目结构和依赖管理
+  2. 实现基础的错误类型和日志系统
+  3. 搭建Cgroup抽象接口
+  4. 实现版本检测逻辑
+
+  阶段2: Cgroup v2支持 (2-3周)
+
+  1. 实现cgroup v2接口
+  2. 添加PSI读取功能
+  3. 实现基础的文件系统操作
+  4. 编写单元测试
+
+  阶段3: Cgroup v1支持 (3-4周)
+
+  1. 实现cgroup v1接口
+  2. 开发内存压力估算算法
+  3. 实现统一的管理器
+  4. v1/v2兼容性测试
+
+  阶段4: 插件系统 (2-3周)
+
+  1. 设计插件trait和注册系统
+  2. 迁移关键检测器插件
+  3. 迁移关键动作插件
+  4. 插件测试框架
+
+  阶段5: 引擎和配置 (2-3周)
+
+  1. 实现规则引擎
+  2. 配置解析和编译
+  3. 主程序入口
+  4. 集成测试
+
+  📝 开发建议
+
+  1. 错误处理策略
+
+  // 使用thiserror定义自定义错误
+  #[derive(thiserror::Error, Debug)]
+  pub enum OomdError {
+      #[error("Cgroup not found: {0}")]
+      CgroupNotFound(String),
+
+      #[error("Unsupported cgroup version: {0:?}")]
+      UnsupportedVersion(CgroupVersion),
+
+      #[error("Pressure data unavailable")]
+      PressureUnavailable,
+
+      #[error("IO error: {0}")]
+      Io(#[from] std::io::Error),
+
+      #[error("Parse error: {0}")]
+      Parse(String),
+  }
+
+  2. 测试策略
+
+  // 单元测试
+  #[cfg(test)]
+  mod tests {
+      use super::*;
+      use tempfile::TempDir;
+
+      #[test]
+      fn test_cgroup_version_detection() {
+          let temp_dir = TempDir::new().unwrap();
+          // 测试版本检测逻辑
+      }
+  }
+
+  // 集成测试
+  #[cfg(test)]
+  mod integration_tests {
+      use super::*;
+
+      #[test]
+      fn test_full_workflow() {
+          // 测试完整工作流
+      }
+  }
+
+  3. 文档策略
+
+  - 每个模块都有详细的文档注释
+  - 提供架构设计文档
+  - 编写迁移指南
+  - API文档使用rustdoc生成
+
+  这个架构设计既保持了原项目的核心功能，又充分利用了Rust的特性。最关
+  键的是Cgroup抽象层的设计，它让v1/v2兼容成为可能。
+
+  你想要我详细展开哪个部分的设计？比如Cgroup抽象层、插件系统，或者具
+  体的实现细节？
+
+> 我有看到你提供给我的项目结构， 
+  我希望你帮我生成每一个文件中需要编写那些数据结构可以吗?
+  可能内容比较多, 你可以一步步生成<think>
+
+● 好的！我来帮你生成每个文件的数据结构定义。我会按照逻辑顺序一步步生
+  成，先从核心的基础结构开始。
+
+  🏗️ 第一步：核心类型和错误定义
+
+  src/util/error.rs - 错误类型定义
+
+  use std::path::PathBuf;
+  use thiserror::Error;
+
+  #[derive(Error, Debug)]
+  pub enum OomdError {
+      #[error("Cgroup not found: {0}")]
+      CgroupNotFound(String),
+
+      #[error("Invalid cgroup path: {0}")]
+      InvalidPath(PathBuf),
+
+      #[error("Unsupported cgroup version: {0:?}")]
+      UnsupportedVersion(CgroupVersion),
+
+      #[error("Pressure data unavailable for {0}")]
+      PressureUnavailable(String),
+
+      #[error("IO error: {0}")]
+      Io(#[from] std::io::Error),
+
+      #[error("Parse error: {0}")]
+      Parse(String),
+
+      #[error("Nix error: {0}")]
+      Nix(#[from] nix::Error),
+
+      #[error("JSON error: {0}")]
+      Json(#[from] serde_json::Error),
+
+      #[error("Plugin error: {0}")]
+      Plugin(String),
+
+      #[error("Config error: {0}")]
+      Config(String),
+
+      #[error("System error: {0}")]
+      System(String),
+  }
+
+  pub type Result<T> = std::result::Result<T, OomdError>;
+
+  src/core/types.rs - 核心数据类型
+
+  use std::path::PathBuf;
+  use std::time::Duration;
+
+  #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+  pub struct ResourcePressure {
+      pub sec_10: f32,
+      pub sec_60: f32,
+      pub sec_300: f32,
+      pub total: Option<Duration>,
+  }
+
+  impl ResourcePressure {
+      pub fn new(sec_10: f32, sec_60: f32, sec_300: f32) -> Self {
+          Self {
+              sec_10,
+              sec_60,
+              sec_300,
+              total: None,
+          }
+      }
+
+      pub fn with_total(mut self, total: Duration) -> Self {
+          self.total = Some(total);
+          self
+      }
+
+      /// 计算加权压力值 (10s权重最高)
+      pub fn weighted(&self) -> f32 {
+          self.sec_10 * 3.0 + self.sec_60 * 2.0 + self.sec_300
+      }
+  }
+
+  #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+  pub struct IOStat {
+      pub rbytes: u64,
+      pub wbytes: u64,
+      pub rios: u64,
+      pub wios: u64,
+      pub dbytes: u64,
+      pub dios: u64,
+  }
+
+  #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+  pub struct MemoryStat {
+      pub anon: u64,
+      pub file: u64,
+      pub kernel_stack: u64,
+      pub slab: u64,
+      pub sock: u64,
+      pub shmem: u64,
+      pub file_mapped: u64,
+      pub file_dirty: u64,
+      pub file_writeback: u64,
+      pub anon_thp: u64,
+      pub inactive_anon: u64,
+      pub active_anon: u64,
+      pub inactive_file: u64,
+      pub active_file: u64,
+      pub unevictable: u64,
+      pub slab_reclaimable: u64,
+      pub slab_unreclaimable: u64,
+      pub pgfault: u64,
+      pub pgmajfault: u64,
+      pub workingset_refault: u64,
+      pub workingset_activate: u64,
+      pub workingset_nodereclaim: u64,
+      pub pgrefill: u64,
+      pub pgscan: u64,
+      pub pgsteal: u64,
+      pub pgactivate: u64,
+      pub pgdeactivate: u64,
+      pub pglazyfree: u64,
+      pub pglazyfreed: u64,
+      pub thp_fault_alloc: u64,
+      pub thp_collapse_alloc: u64,
+  }
+
+  #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+  pub struct SystemContext {
+      pub swaptotal: u64,
+      pub swapused: u64,
+      pub swappiness: i32,
+      pub vmstat: std::collections::HashMap<String, i64>,
+      pub swapout_bps: f64,
+      pub swapout_bps_60: f64,
+      pub swapout_bps_300: f64,
+  }
+
+  #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+  pub enum KillPreference {
+      Prefer = 1,
+      Normal = 0,
+      Avoid = -1,
+  }
+
+  #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+  pub struct ProcessInfo {
+      pub pid: libc::pid_t,
+      pub comm: String,
+      pub memory_usage: u64,
+      pub cpu_usage: f32,
+      pub oom_score: i32,
+      pub oom_score_adj: i32,
+  }
+
+  #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+  pub enum PluginRet {
+      Continue,  // 继续执行下一个插件
+      Stop,      // 停止执行当前链
+      Async,     // 异步执行
+  }
+
+  src/cgroup/types.rs - Cgroup相关类型
+
+  use std::path::PathBuf;
+  use super::core::types::ResourcePressure;
+
+  #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+  pub enum CgroupVersion {
+      /// Cgroup v1 - 多个挂载点
+      V1 {
+          memory: PathBuf,
+          cpu: PathBuf,
+          blkio: PathBuf,
+          cpuset: PathBuf,
+      },
+      /// Cgroup v2 - 统一层次
+      V2 {
+          unified: PathBuf,
+      },
+      /// 混合模式 - 同时支持v1和v2
+      Hybrid {
+          v1_root: PathBuf,
+          v2_root: PathBuf,
+      },
+  }
+
+  impl CgroupVersion {
+      pub fn detect() -> Result<Self> {
+          // 实现版本检测逻辑
+          todo!()
+      }
+
+      pub fn supports_psi(&self) -> bool {
+          match self {
+              CgroupVersion::V1 { .. } => false,  // v1需要特殊处理
+              CgroupVersion::V2 { .. } => true,
+              CgroupVersion::Hybrid { .. } => true,
+          }
+      }
+  }
+
+  #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, 
+  Deserialize)]
+  pub struct CgroupPath {
+      pub root: PathBuf,
+      pub path: PathBuf,
+      pub relative_path: String,
+  }
+
+  impl CgroupPath {
+      pub fn new(root: PathBuf, path: PathBuf) -> Result<Self> {
+          let relative_path = path.strip_prefix(&root)
+              .map_err(|_| OomdError::InvalidPath(path.clone()))?
+              .to_string_lossy()
+              .to_string();
+
+          Ok(Self {
+              root,
+              path,
+              relative_path,
+          })
+      }
+
+      pub fn absolute(&self) -> &PathBuf {
+          &self.path
+      }
+
+      pub fn relative(&self) -> &str {
+          &self.relative_path
+      }
+  }
+
+  #[derive(Debug, Clone, Serialize, Deserialize)]
+  pub struct CgroupContext {
+      pub path: CgroupPath,
+      pub memory_usage: Option<u64>,
+      pub memory_limit: Option<u64>,
+      pub memory_pressure: Option<ResourcePressure>,
+      pub io_pressure: Option<ResourcePressure>,
+      pub memory_stat: Option<MemoryStat>,
+      pub io_stat: Option<IOStat>,
+      pub pids: Option<Vec<libc::pid_t>>,
+      pub children: Option<Vec<String>>,
+      pub is_populated: Option<bool>,
+      pub current_age: Option<u64>,  // 更新次数，用于缓存
+  }
+
+  impl CgroupContext {
+      pub fn new(path: CgroupPath) -> Self {
+          Self {
+              path,
+              memory_usage: None,
+              memory_limit: None,
+              memory_pressure: None,
+              io_pressure: None,
+              memory_stat: None,
+              io_stat: None,
+              pids: None,
+              children: None,
+              is_populated: None,
+              current_age: 0,
+          }
+      }
+
+      pub fn is_valid(&self) -> bool {
+          self.memory_usage.is_some() ||
+  self.memory_pressure.is_some()
+      }
+  }
+
+  #[derive(Debug, Clone, Serialize, Deserialize)]
+  pub struct OomdContext {
+      pub cgroups: std::collections::HashMap<String, CgroupContext>,
+      pub system_context: SystemContext,
+      pub timestamp: std::time::SystemTime,
+      pub cache_age: u64,
+  }
+
+  impl OomdContext {
+      pub fn new() -> Self {
+          Self {
+              cgroups: std::collections::HashMap::new(),
+              system_context: SystemContext {
+                  swaptotal: 0,
+                  swapused: 0,
+                  swappiness: 60,
+                  vmstat: std::collections::HashMap::new(),
+                  swapout_bps: 0.0,
+                  swapout_bps_60: 0.0,
+                  swapout_bps_300: 0.0,
+              },
+              timestamp: std::time::SystemTime::now(),
+              cache_age: 0,
+          }
+      }
+
+      pub fn get_cgroup(&self, path: &str) -> Option<&CgroupContext>
+   {
+          self.cgroups.get(path)
+      }
+
+      pub fn get_mut_cgroup(&mut self, path: &str) -> Option<&mut
+  CgroupContext> {
+          self.cgroups.get_mut(path)
+      }
+
+      pub fn add_cgroup(&mut self, key: String, cgroup:
+  CgroupContext) {
+          self.cgroups.insert(key, cgroup);
+      }
+  }
+
+  🏗️ 第二步：Cgroup接口定义
+
+  src/cgroup/interface.rs - Cgroup统一接口
+
+  use super::types::*;
+  use super::core::types::*;
+
+  #[async_trait::async_trait]
+  pub trait CgroupInterface: Send + Sync {
+      /// 获取cgroup版本
+      fn version(&self) -> &CgroupVersion;
+
+      /// 获取内存压力
+      async fn get_memory_pressure(&self, cgroup: &CgroupPath) ->
+  Result<ResourcePressure>;
+
+      /// 获取内存使用量
+      async fn get_memory_usage(&self, cgroup: &CgroupPath) ->
+  Result<u64>;
+
+      /// 获取内存限制
+      async fn get_memory_limit(&self, cgroup: &CgroupPath) ->
+  Result<u64>;
+
+      /// 获取IO压力
+      async fn get_io_pressure(&self, cgroup: &CgroupPath) ->
+  Result<ResourcePressure>;
+
+      /// 获取内存统计信息
+      async fn get_memory_stat(&self, cgroup: &CgroupPath) ->
+  Result<MemoryStat>;
+
+      /// 获取IO统计信息
+      async fn get_io_stat(&self, cgroup: &CgroupPath) ->
+  Result<IOStat>;
+
+      /// 获取进程列表
+      async fn get_pids(&self, cgroup: &CgroupPath) ->
+  Result<Vec<libc::pid_t>>;
+
+      /// 获取子cgroup列表
+      async fn get_children(&self, cgroup: &CgroupPath) ->
+  Result<Vec<String>>;
+
+      /// 检查cgroup是否被占用
+      async fn is_populated(&self, cgroup: &CgroupPath) ->
+  Result<bool>;
+
+      /// 内存回收
+      async fn memory_reclaim(&self, cgroup: &CgroupPath, amount:
+  u64) -> Result<()>;
+
+      /// 列出匹配的cgroup
+      async fn list_cgroups(&self, pattern: &str) ->
+  Result<Vec<CgroupPath>>;
+
+      /// 检查cgroup是否存在
+      async fn cgroup_exists(&self, cgroup: &CgroupPath) ->
+  Result<bool>;
+
+      /// 获取系统级内存压力
+      async fn get_system_memory_pressure(&self) ->
+  Result<ResourcePressure>;
+
+      /// 获取系统级IO压力
+      async fn get_system_io_pressure(&self) ->
+  Result<ResourcePressure>;
+  }
+
+  /// 压力类型枚举
+  #[derive(Debug, Clone, Copy, PartialEq)]
+  pub enum PressureType {
+      Some,   // 部分阻塞
+      Full,   // 完全阻塞
+  }
+
+  impl PressureType {
+      pub fn as_str(&self) -> &'static str {
+          match self {
+              PressureType::Some => "some",
+              PressureType::Full => "full",
+          }
+      }
+  }
+
+  /// PSI数据格式
+  #[derive(Debug, Clone, PartialEq)]
+  pub struct PsiData {
+      pub avg10: f32,
+      pub avg60: f32,
+      pub avg300: f32,
+      pub total: Option<u64>,  // 微秒
+  }
+
+  impl PsiData {
+      pub fn from_line(line: &str) -> Result<Self> {
+          // 解析PSI格式: "some avg10=0.22 avg60=0.17 avg300=1.11 
+  total=58761459"
+          let parts: Vec<&str> = line.split_whitespace().collect();
+          if parts.len() < 4 {
+              return Err(OomdError::Parse(format!("Invalid PSI 
+  format: {}", line)));
+          }
+
+          let avg10 = Self::parse_float_field(parts[1])?;
+          let avg60 = Self::parse_float_field(parts[2])?;
+          let avg300 = Self::parse_float_field(parts[3])?;
+          let total = if parts.len() > 4 {
+              Self::parse_u64_field(parts[4])?.ok()
+          } else {
+              None
+          };
+
+          Ok(Self {
+              avg10,
+              avg60,
+              avg300,
+              total,
+          })
+      }
+
+      fn parse_float_field(field: &str) -> Result<f32> {
+          let kv: Vec<&str> = field.split('=').collect();
+          if kv.len() != 2 {
+              return Err(OomdError::Parse(format!("Invalid field 
+  format: {}", field)));
+          }
+          kv[1].parse().map_err(|e| OomdError::Parse(e.to_string()))
+      }
+
+      fn parse_u64_field(field: &str) -> Result<Option<u64>> {
+          let kv: Vec<&str> = field.split('=').collect();
+          if kv.len() != 2 {
+              return Err(OomdError::Parse(format!("Invalid field 
+  format: {}", field)));
+          }
+          match kv[1].parse() {
+              Ok(v) => Ok(Some(v)),
+              Err(_) => Ok(None),
+          }
+      }
+
+      pub fn to_resource_pressure(&self) -> ResourcePressure {
+          ResourcePressure {
+              sec_10: self.avg10,
+              sec_60: self.avg60,
+              sec_300: self.avg300,
+              total: self.total.map(Duration::from_micros),
+          }
+      }
+  }
+
+  这是第一部分的核心数据结构定义。这些定义了整个项目的基础。你觉得这
+  些结构定义如何？我们是否继续下一步，实现Cgroup v1和v2的具体接口？
+
+! cargo new rust-oomd
+  ⎿      Creating binary (application) `rust-oomd` package
+     note: see more `Cargo.toml` keys and their definitions at https
+     ://doc.rust-lang.org/cargo/reference/manifest.html
+
+> 我在当前目录下创建了一个 rust-oomd项目, 
+  我已经将你刚刚给出的内容写入了对应的文件中,
+  接下来你可以将内容直接写入新的文件中. 请你继续实现cgroup v1 和 v2
+  的接口
+
+● 太好了！我看到你已经创建了rust-oomd项目。现在我来继续实现cgroup
+  v1和v2的具体接口。
+
+  🏗️ 第三步：Cgroup v1实现
+
+  src/cgroup/v1.rs - Cgroup v1接口实现
+
+  use super::interface::*;
+  use super::types::*;
+  use super::core::types::*;
+  use nix::sys::statfs;
+  use std::collections::HashMap;
+  use std::path::{Path, PathBuf};
+  use std::fs;
+  use std::os::unix::fs::MetadataExt;
+  use tokio::fs as async_fs;
+  use tokio::io::AsyncBufReadExt;
+
+  pub struct CgroupV1Interface {
+      memory_mount: PathBuf,
+      cpu_mount: PathBuf,
+      blkio_mount: PathBuf,
+      cpuset_mount: PathBuf,
+      cache: std::sync::Arc<tokio::sync::RwLock<HashMap<String,
+  CacheEntry>>>,
+  }
+
+  #[derive(Debug, Clone)]
+  struct CacheEntry {
+      data: CachedData,
+      timestamp: std::time::Instant,
+      ttl: std::time::Duration,
+  }
+
+  #[derive(Debug, Clone)]
+  enum CachedData {
+      MemoryPressure(ResourcePressure),
+      MemoryUsage(u64),
+      MemoryLimit(u64),
+      IOPressure(ResourcePressure),
+      MemoryStat(MemoryStat),
+      IOStat(IOStat),
+      Pids(Vec<libc::pid_t>),
+      Children(Vec<String>),
+      Populated(bool),
+  }
+
+  impl CgroupV1Interface {
+      pub async fn new() -> Result<Self> {
+          let memory_mount = Self::find_mount_point("memory")?;
+          let cpu_mount = Self::find_mount_point("cpu")?;
+          let blkio_mount = Self::find_mount_point("blkio")?;
+          let cpuset_mount = Self::find_mount_point("cpuset")?;
+
+          Ok(Self {
+              memory_mount,
+              cpu_mount,
+              blkio_mount,
+              cpuset_mount,
+              cache:
+  std::sync::Arc::new(tokio::sync::RwLock::new(HashMap::new())),
+          })
+      }
+
+      fn find_mount_point(subsystem: &str) -> Result<PathBuf> {
+          let content = fs::read_to_string("/proc/mounts")?;
+
+          for line in content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() >= 3 && parts[2] == "cgroup" {
+                  let opts: Vec<&str> =
+  parts[3].split(',').collect();
+                  if opts.contains(&subsystem) {
+                      return Ok(PathBuf::from(parts[1]));
+                  }
+              }
+          }
+
+          Err(OomdError::CgroupNotFound(format!("{} subsystem not 
+  found", subsystem)))
+      }
+
+      fn get_memory_cgroup_path(&self, cgroup: &CgroupPath) ->
+  PathBuf {
+          self.memory_mount.join(&cgroup.relative_path)
+      }
+
+      fn get_blkio_cgroup_path(&self, cgroup: &CgroupPath) ->
+  PathBuf {
+          self.blkio_mount.join(&cgroup.relative_path)
+      }
+
+      async fn get_cache<T>(&self, key: &str, ttl:
+  std::time::Duration, f: impl std::future::Future<Output =
+  Result<T>>) -> Result<T> {
+          let cache = self.cache.read().await;
+
+          if let Some(entry) = cache.get(key) {
+              if entry.timestamp.elapsed() < ttl {
+                  if let CachedData::MemoryPressure(data) =
+  &entry.data {
+                      return Ok(data.clone());
+                  }
+              }
+          }
+
+          drop(cache);
+
+          let data = f.await?;
+          let entry = CacheEntry {
+              data: CachedData::MemoryPressure(data.clone()),
+              timestamp: std::time::Instant::now(),
+              ttl,
+          };
+
+          self.cache.write().await.insert(key.to_string(), entry);
+          Ok(data)
+      }
+
+      /// 估算内存压力 - v1没有原生PSI支持
+      async fn estimate_memory_pressure(&self, cgroup: &CgroupPath)
+  -> Result<ResourcePressure> {
+          let usage = self.get_memory_usage(cgroup).await?;
+          let limit = self.get_memory_limit(cgroup).await?;
+          let usage_ratio = usage as f64 / limit as f64;
+
+          // 获取系统级PSI
+          let system_psi = self.get_system_memory_pressure().await?;
+
+          // 基于使用率调整系统PSI
+          let estimated_psi = ResourcePressure {
+              sec_10: system_psi.sec_10 * usage_ratio as f32,
+              sec_60: system_psi.sec_60 * usage_ratio as f32,
+              sec_300: system_psi.sec_300 * usage_ratio as f32,
+              total: system_psi.total,
+          };
+
+          Ok(estimated_psi)
+      }
+
+      /// 从vmstat获取系统内存压力信息
+      async fn get_vmstat_pressure(&self) ->
+  Result<ResourcePressure> {
+          let vmstat_content = fs::read_to_string("/proc/vmstat")?;
+          let mut pgscan = 0u64;
+          let mut pgsteal = 0u64;
+
+          for line in vmstat_content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() == 2 {
+                  match parts[0] {
+                      "nr_free_pages" => continue,
+                      "nr_inactive_anon" => continue,
+                      "nr_active_anon" => continue,
+                      "nr_inactive_file" => continue,
+                      "nr_active_file" => continue,
+                      "pgscan_kswapd" | "pgscan_direct" => {
+                          pgscan +=
+  parts[1].parse::<u64>().unwrap_or(0);
+                      }
+                      "pgsteal_kswapd" | "pgsteal_direct" => {
+                          pgsteal +=
+  parts[1].parse::<u64>().unwrap_or(0);
+                      }
+                      _ => continue,
+                  }
+              }
+          }
+
+          // 基于扫描和窃取比例计算压力
+          let steal_ratio = if pgscan > 0 { pgsteal as f64 / pgscan
+  as f64 } else { 0.0 };
+          let pressure_10 = (steal_ratio * 100.0).min(100.0) as f32;
+          let pressure_60 = pressure_10 * 0.8; // 60秒平均略低
+          let pressure_300 = pressure_10 * 0.6; // 300秒平均更低
+
+          Ok(ResourcePressure {
+              sec_10: pressure_10,
+              sec_60: pressure_60,
+              sec_300: pressure_300,
+              total: None,
+          })
+      }
+
+      /// 读取内存控制文件
+      async fn read_memory_file(&self, cgroup: &CgroupPath,
+  filename: &str) -> Result<String> {
+          let path =
+  self.get_memory_cgroup_path(cgroup).join(filename);
+          let content = async_fs::read_to_string(&path).await
+              .map_err(|e| OomdError::Io(e))?;
+          Ok(content.trim().to_string())
+      }
+
+      /// 读取blkio控制文件
+      async fn read_blkio_file(&self, cgroup: &CgroupPath, filename:
+   &str) -> Result<String> {
+          let path =
+  self.get_blkio_cgroup_path(cgroup).join(filename);
+          let content = async_fs::read_to_string(&path).await
+              .map_err(|e| OomdError::Io(e))?;
+          Ok(content.trim().to_string())
+      }
+  }
+
+  #[async_trait::async_trait]
+  impl CgroupInterface for CgroupV1Interface {
+      fn version(&self) -> &CgroupVersion {
+          &CgroupVersion::V1 {
+              memory: self.memory_mount.clone(),
+              cpu: self.cpu_mount.clone(),
+              blkio: self.blkio_mount.clone(),
+              cpuset: self.cpuset_mount.clone(),
+          }
+      }
+
+      async fn get_memory_pressure(&self, cgroup: &CgroupPath) ->
+  Result<ResourcePressure> {
+          let cache_key = format!("memory_pressure:{}",
+  cgroup.relative_path);
+          self.get_cache(&cache_key,
+  std::time::Duration::from_secs(1), async {
+              self.estimate_memory_pressure(cgroup).await
+          }).await
+      }
+
+      async fn get_memory_usage(&self, cgroup: &CgroupPath) ->
+  Result<u64> {
+          let cache_key = format!("memory_usage:{}",
+  cgroup.relative_path);
+          self.get_cache(&cache_key,
+  std::time::Duration::from_millis(500), async {
+              let content = self.read_memory_file(cgroup,
+  "memory.usage_in_bytes").await?;
+              let usage = content.parse::<u64>()
+                  .map_err(|e| OomdError::Parse(format!("Invalid 
+  memory usage: {}", e)))?;
+              Ok(usage)
+          }).await
+      }
+
+      async fn get_memory_limit(&self, cgroup: &CgroupPath) ->
+  Result<u64> {
+          let content = self.read_memory_file(cgroup,
+  "memory.limit_in_bytes").await?;
+          match content.as_str() {
+              "-1" | "max" => Ok(u64::MAX), // 无限制
+              _ => {
+                  let limit = content.parse::<u64>()
+                      .map_err(|e| OomdError::Parse(format!("Invalid
+   memory limit: {}", e)))?;
+                  Ok(limit)
+              }
+          }
+      }
+
+      async fn get_io_pressure(&self, cgroup: &CgroupPath) ->
+  Result<ResourcePressure> {
+          // Cgroup v1没有IO压力，基于IO统计估算
+          let io_stat = self.get_io_stat(cgroup).await?;
+
+          // 简单的IO压力估算
+          let total_ios = io_stat.rios + io_stat.wios;
+          let total_bytes = io_stat.rbytes + io_stat.wbytes;
+
+          // 这些阈值需要根据实际场景调整
+          let ios_pressure = if total_ios > 10000 { 80.0 } else if
+  total_ios > 1000 { 60.0 } else { 20.0 };
+          let bytes_pressure = if total_bytes > 1024 * 1024 * 1024 {
+   70.0 } else if total_bytes > 100 * 1024 * 1024 { 50.0 } else {
+  10.0 };
+
+          let combined_pressure = (ios_pressure + bytes_pressure) /
+  2.0;
+
+          Ok(ResourcePressure {
+              sec_10: combined_pressure,
+              sec_60: combined_pressure * 0.9,
+              sec_300: combined_pressure * 0.8,
+              total: None,
+          })
+      }
+
+      async fn get_memory_stat(&self, cgroup: &CgroupPath) ->
+  Result<MemoryStat> {
+          let content = self.read_memory_file(cgroup,
+  "memory.stat").await?;
+          let mut stat = MemoryStat::default();
+
+          for line in content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() != 2 {
+                  continue;
+              }
+
+              let value = parts[1].parse::<u64>().unwrap_or(0);
+
+              match parts[0] {
+                  "anon" => stat.anon = value,
+                  "file" => stat.file = value,
+                  "kernel_stack" => stat.kernel_stack = value,
+                  "slab" => stat.slab = value,
+                  "sock" => stat.sock = value,
+                  "shmem" => stat.shmem = value,
+                  "file_mapped" => stat.file_mapped = value,
+                  "file_dirty" => stat.file_dirty = value,
+                  "file_writeback" => stat.file_writeback = value,
+                  "anon_thp" => stat.anon_thp = value,
+                  "inactive_anon" => stat.inactive_anon = value,
+                  "active_anon" => stat.active_anon = value,
+                  "inactive_file" => stat.inactive_file = value,
+                  "active_file" => stat.active_file = value,
+                  "unevictable" => stat.unevictable = value,
+                  "slab_reclaimable" => stat.slab_reclaimable =
+  value,
+                  "slab_unreclaimable" => stat.slab_unreclaimable =
+  value,
+                  "pgfault" => stat.pgfault = value,
+                  "pgmajfault" => stat.pgmajfault = value,
+                  "workingset_refault" => stat.workingset_refault =
+  value,
+                  "workingset_activate" => stat.workingset_activate
+  = value,
+                  "workingset_nodereclaim" =>
+  stat.workingset_nodereclaim = value,
+                  "pgrefill" => stat.pgrefill = value,
+                  "pgscan" => stat.pgscan = value,
+                  "pgsteal" => stat.pgsteal = value,
+                  "pgactivate" => stat.pgactivate = value,
+                  "pgdeactivate" => stat.pgdeactivate = value,
+                  "pglazyfree" => stat.pglazyfree = value,
+                  "pglazyfreed" => stat.pglazyfreed = value,
+                  "thp_fault_alloc" => stat.thp_fault_alloc = value,
+                  "thp_collapse_alloc" => stat.thp_collapse_alloc =
+  value,
+                  _ => {}
+              }
+          }
+
+          Ok(stat)
+      }
+
+      async fn get_io_stat(&self, cgroup: &CgroupPath) ->
+  Result<IOStat> {
+          let content = self.read_blkio_file(cgroup,
+  "blkio.throttle.io_service_bytes").await?;
+          let mut io_stat = IOStat::default();
+
+          for line in content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() != 3 {
+                  continue;
+              }
+
+              let value = parts[2].parse::<u64>().unwrap_or(0);
+
+              match parts[0] {
+                  "Read" => match parts[1] {
+                      "Total" => io_stat.rbytes = value,
+                      _ => {}
+                  },
+                  "Write" => match parts[1] {
+                      "Total" => io_stat.wbytes = value,
+                      _ => {}
+                  },
+                  _ => {}
+              }
+          }
+
+          // 读取IO操作数
+          let ops_content = self.read_blkio_file(cgroup,
+  "blkio.throttle.io_serviced").await?;
+          for line in ops_content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() != 3 {
+                  continue;
+              }
+
+              let value = parts[2].parse::<u64>().unwrap_or(0);
+
+              match parts[0] {
+                  "Read" => match parts[1] {
+                      "Total" => io_stat.rios = value,
+                      _ => {}
+                  },
+                  "Write" => match parts[1] {
+                      "Total" => io_stat.wios = value,
+                      _ => {}
+                  },
+                  _ => {}
+              }
+          }
+
+          Ok(io_stat)
+      }
+
+      async fn get_pids(&self, cgroup: &CgroupPath) ->
+  Result<Vec<libc::pid_t>> {
+          let path =
+  self.get_memory_cgroup_path(cgroup).join("tasks");
+          let content = async_fs::read_to_string(&path).await?;
+
+          let mut pids = Vec::new();
+          for line in content.lines() {
+              if let Ok(pid) = line.trim().parse::<libc::pid_t>() {
+                  pids.push(pid);
+              }
+          }
+
+          Ok(pids)
+      }
+
+      async fn get_children(&self, cgroup: &CgroupPath) ->
+  Result<Vec<String>> {
+          let path = self.get_memory_cgroup_path(cgroup);
+          let mut children = Vec::new();
+
+          if let Ok(mut entries) = tokio::fs::read_dir(&path).await
+  {
+              while let Ok(Some(entry)) = entries.next_entry().await
+   {
+                  if let Ok(file_type) = entry.file_type().await {
+                      if file_type.is_dir() {
+                          if let Some(name) =
+  entry.file_name().to_str() {
+                              if !name.starts_with('.') {
+                                  children.push(name.to_string());
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+
+          Ok(children)
+      }
+
+      async fn is_populated(&self, cgroup: &CgroupPath) ->
+  Result<bool> {
+          let pids = self.get_pids(cgroup).await?;
+          Ok(!pids.is_empty())
+      }
+
+      async fn memory_reclaim(&self, cgroup: &CgroupPath, amount:
+  u64) -> Result<()> {
+          // Cgroup v1不支持直接内存回收，可以尝试通过限制触发
+          let current_limit = self.get_memory_limit(cgroup).await?;
+          let current_usage = self.get_memory_usage(cgroup).await?;
+
+          if current_usage > amount {
+              let new_limit = current_usage - amount;
+              let limit_str = new_limit.to_string();
+              let path =
+  self.get_memory_cgroup_path(cgroup).join("memory.limit_in_bytes");
+
+              async_fs::write(&path, limit_str).await?;
+
+              // 等待一段时间让系统回收内存
+
+  tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+
+              // 恢复原有限制
+              let orig_limit_str = if current_limit == u64::MAX {
+                  "-1".to_string()
+              } else {
+                  current_limit.to_string()
+              };
+              async_fs::write(&path, orig_limit_str).await?;
+          }
+
+          Ok(())
+      }
+
+      async fn list_cgroups(&self, pattern: &str) ->
+  Result<Vec<CgroupPath>> {
+          let mut result = Vec::new();
+          self._list_cgroups_recursive(&self.memory_mount, pattern,
+  &mut result).await?;
+          Ok(result)
+      }
+
+      async fn cgroup_exists(&self, cgroup: &CgroupPath) ->
+  Result<bool> {
+          let path = self.get_memory_cgroup_path(cgroup);
+          Ok(async_fs::metadata(&path).await.is_ok())
+      }
+
+      async fn get_system_memory_pressure(&self) ->
+  Result<ResourcePressure> {
+          // 尝试读取系统级PSI (内核4.20+)
+          if let Ok(content) =
+  async_fs::read_to_string("/proc/pressure/memory").await {
+              for line in content.lines() {
+                  if line.starts_with("full") {
+                      let psi = PsiData::from_line(line)?;
+                      return Ok(psi.to_resource_pressure());
+                  }
+              }
+          }
+
+          // 回退到vmstat估算
+          self.get_vmstat_pressure().await
+      }
+
+      async fn get_system_io_pressure(&self) ->
+  Result<ResourcePressure> {
+          // 尝试读取系统级PSI
+          if let Ok(content) =
+  async_fs::read_to_string("/proc/pressure/io").await {
+              for line in content.lines() {
+                  if line.starts_with("full") {
+                      let psi = PsiData::from_line(line)?;
+                      return Ok(psi.to_resource_pressure());
+                  }
+              }
+          }
+
+          // 默认返回低压力
+          Ok(ResourcePressure::new(0.1, 0.1, 0.1))
+      }
+  }
+
+  impl CgroupV1Interface {
+      async fn _list_cgroups_recursive(&self, base_path: &Path,
+  pattern: &str, result: &mut Vec<CgroupPath>) -> Result<()> {
+          let mut entries = async_fs::read_dir(base_path).await?;
+
+          while let Ok(Some(entry)) = entries.next_entry().await {
+              let path = entry.path();
+
+              if entry.file_type().await.map_or(false, |ft|
+  ft.is_dir()) {
+                  if let Some(name) = path.file_name().and_then(|n|
+  n.to_str()) {
+                      if !name.starts_with('.') {
+                          let relative_path =
+  path.strip_prefix(&self.memory_mount)
+                              .map_err(|_|
+  OomdError::InvalidPath(path.clone()))?;
+
+                          if pattern.is_empty() ||
+  relative_path.to_string_lossy().contains(pattern) {
+                              result.push(CgroupPath::new(
+                                  self.memory_mount.clone(),
+                                  relative_path.to_path_buf(),
+                              )?);
+                          }
+
+                          // 递归搜索子目录
+                          self._list_cgroups_recursive(&path,
+  pattern, result).await?;
+                      }
+                  }
+              }
+          }
+
+          Ok(())
+      }
+  }
+
+  🏗️ 第四步：Cgroup v2实现
+
+  src/cgroup/v2.rs - Cgroup v2接口实现
+
+  use super::interface::*;
+  use super::types::*;
+  use super::core::types::*;
+  use std::collections::HashMap;
+  use std::path::{Path, PathBuf};
+  use std::fs;
+  use tokio::fs as async_fs;
+
+  pub struct CgroupV2Interface {
+      unified_mount: PathBuf,
+      cache: std::sync::Arc<tokio::sync::RwLock<HashMap<String,
+  CacheEntry>>>,
+  }
+
+  #[derive(Debug, Clone)]
+  struct CacheEntry {
+      data: CachedData,
+      timestamp: std::time::Instant,
+      ttl: std::time::Duration,
+  }
+
+  #[derive(Debug, Clone)]
+  enum CachedData {
+      MemoryPressure(ResourcePressure),
+      MemoryUsage(u64),
+      MemoryLimit(u64),
+      IOPressure(ResourcePressure),
+      MemoryStat(MemoryStat),
+      IOStat(IOStat),
+      Pids(Vec<libc::pid_t>),
+      Children(Vec<String>),
+      Populated(bool),
+  }
+
+  impl CgroupV2Interface {
+      pub async fn new() -> Result<Self> {
+          let unified_mount = Self::find_unified_mount()?;
+
+          Ok(Self {
+              unified_mount,
+              cache:
+  std::sync::Arc::new(tokio::sync::RwLock::new(HashMap::new())),
+          })
+      }
+
+      fn find_unified_mount() -> Result<PathBuf> {
+          let content = fs::read_to_string("/proc/mounts")?;
+
+          for line in content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() >= 3 && parts[2] == "cgroup2" {
+                  return Ok(PathBuf::from(parts[1]));
+              }
+          }
+
+          // 默认路径
+          Ok(PathBuf::from("/sys/fs/cgroup"))
+      }
+
+      fn get_cgroup_path(&self, cgroup: &CgroupPath) -> PathBuf {
+          self.unified_mount.join(&cgroup.relative_path)
+      }
+
+      async fn get_cache<T>(&self, key: &str, ttl:
+  std::time::Duration, f: impl std::future::Future<Output =
+  Result<T>>) -> Result<T> {
+          {
+              let cache = self.cache.read().await;
+              if let Some(entry) = cache.get(key) {
+                  if entry.timestamp.elapsed() < ttl {
+                      return match &entry.data {
+                          CachedData::MemoryPressure(data) =>
+  Ok(data.clone()),
+                          CachedData::MemoryUsage(data) =>
+  Ok(*data),
+                          CachedData::MemoryLimit(data) =>
+  Ok(*data),
+                          CachedData::IOPressure(data) =>
+  Ok(data.clone()),
+                          _ => Err(OomdError::System("Cache type 
+  mismatch".to_string())),
+                      };
+                  }
+              }
+          }
+
+          let data = f.await?;
+          let entry = CacheEntry {
+              data: match &data {
+                  d if std::any::type_name::<T>() ==
+  std::any::type_name::<ResourcePressure>() => {
+                      CachedData::MemoryPressure(unsafe {
+  std::mem::transmute_copy(&data) })
+                  },
+                  d if std::any::type_name::<T>() ==
+  std::any::type_name::<u64>() => {
+                      CachedData::MemoryUsage(unsafe {
+  std::mem::transmute_copy(&data) })
+                  },
+                  _ => return Err(OomdError::System("Unsupported 
+  cache type".to_string())),
+              },
+              timestamp: std::time::Instant::now(),
+              ttl,
+          };
+
+          self.cache.write().await.insert(key.to_string(), entry);
+          Ok(data)
+      }
+
+      /// 读取cgroup控制文件
+      async fn read_cgroup_file(&self, cgroup: &CgroupPath,
+  filename: &str) -> Result<String> {
+          let path = self.get_cgroup_path(cgroup).join(filename);
+          let content = async_fs::read_to_string(&path).await
+              .map_err(|e| OomdError::Io(e))?;
+          Ok(content.trim().to_string())
+      }
+
+      /// 写入cgroup控制文件
+      async fn write_cgroup_file(&self, cgroup: &CgroupPath,
+  filename: &str, data: &str) -> Result<()> {
+          let path = self.get_cgroup_path(cgroup).join(filename);
+          async_fs::write(&path, data).await
+              .map_err(|e| OomdError::Io(e))?;
+          Ok(())
+      }
+
+      /// 解析PSI文件
+      async fn read_pressure_file(&self, cgroup: &CgroupPath,
+  pressure_type: PressureType) -> Result<ResourcePressure> {
+          let filename = match pressure_type {
+              PressureType::Some => "memory.pressure.some",
+              PressureType::Full => "memory.pressure.full",
+          };
+
+          let path = self.get_cgroup_path(cgroup).join(filename);
+          let content = async_fs::read_to_string(&path).await?;
+
+          // 解析格式: "avg10=0.22 avg60=0.17 avg300=1.11 
+  total=58761459"
+          let psi = PsiData::from_line(&content)?;
+          Ok(psi.to_resource_pressure())
+      }
+  }
+
+  #[async_trait::async_trait]
+  impl CgroupInterface for CgroupV2Interface {
+      fn version(&self) -> &CgroupVersion {
+          &CgroupVersion::V2 {
+              unified: self.unified_mount.clone(),
+          }
+      }
+
+      async fn get_memory_pressure(&self, cgroup: &CgroupPath) ->
+  Result<ResourcePressure> {
+          let cache_key = format!("memory_pressure:{}",
+  cgroup.relative_path);
+          self.get_cache(&cache_key,
+  std::time::Duration::from_secs(1), async {
+              // 使用Full压力，因为它表示完全阻塞
+              self.read_pressure_file(cgroup,
+  PressureType::Full).await
+          }).await
+      }
+
+      async fn get_memory_usage(&self, cgroup: &CgroupPath) ->
+  Result<u64> {
+          let cache_key = format!("memory_usage:{}",
+  cgroup.relative_path);
+          self.get_cache(&cache_key,
+  std::time::Duration::from_millis(500), async {
+              let content = self.read_cgroup_file(cgroup,
+  "memory.current").await?;
+              let usage = content.parse::<u64>()
+                  .map_err(|e| OomdError::Parse(format!("Invalid 
+  memory usage: {}", e)))?;
+              Ok(usage)
+          }).await
+      }
+
+      async fn get_memory_limit(&self, cgroup: &CgroupPath) ->
+  Result<u64> {
+          let content = self.read_cgroup_file(cgroup,
+  "memory.max").await?;
+          match content.as_str() {
+              "max" => Ok(u64::MAX), // 无限制
+              _ => {
+                  let limit = content.parse::<u64>()
+                      .map_err(|e| OomdError::Parse(format!("Invalid
+   memory limit: {}", e)))?;
+                  Ok(limit)
+              }
+          }
+      }
+
+      async fn get_io_pressure(&self, cgroup: &CgroupPath) ->
+  Result<ResourcePressure> {
+          let cache_key = format!("io_pressure:{}",
+  cgroup.relative_path);
+          self.get_cache(&cache_key,
+  std::time::Duration::from_secs(1), async {
+              self.read_pressure_file(cgroup,
+  PressureType::Full).await
+          }).await
+      }
+
+      async fn get_memory_stat(&self, cgroup: &CgroupPath) ->
+  Result<MemoryStat> {
+          let content = self.read_cgroup_file(cgroup,
+  "memory.stat").await?;
+          let mut stat = MemoryStat::default();
+
+          for line in content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() != 2 {
+                  continue;
+              }
+
+              let value = parts[1].parse::<u64>().unwrap_or(0);
+
+              // Cgroup v2的统计项名称可能略有不同
+              match parts[0] {
+                  "anon" => stat.anon = value,
+                  "file" => stat.file = value,
+                  "kernel_stack" => stat.kernel_stack = value,
+                  "slab" => stat.slab = value,
+                  "sock" => stat.sock = value,
+                  "shmem" => stat.shmem = value,
+                  "file_mapped" => stat.file_mapped = value,
+                  "file_dirty" => stat.file_dirty = value,
+                  "file_writeback" => stat.file_writeback = value,
+                  "anon_thp" => stat.anon_thp = value,
+                  "inactive_anon" => stat.inactive_anon = value,
+                  "active_anon" => stat.active_anon = value,
+                  "inactive_file" => stat.inactive_file = value,
+                  "active_file" => stat.active_file = value,
+                  "unevictable" => stat.unevictable = value,
+                  "slab_reclaimable" => stat.slab_reclaimable =
+  value,
+                  "slab_unreclaimable" => stat.slab_unreclaimable =
+  value,
+                  "pgfault" => stat.pgfault = value,
+                  "pgmajfault" => stat.pgmajfault = value,
+                  "workingset_refault" => stat.workingset_refault =
+  value,
+                  "workingset_activate" => stat.workingset_activate
+  = value,
+                  "workingset_nodereclaim" =>
+  stat.workingset_nodereclaim = value,
+                  "pgrefill" => stat.pgrefill = value,
+                  "pgscan" => stat.pgscan = value,
+                  "pgsteal" => stat.pgsteal = value,
+                  "pgactivate" => stat.pgactivate = value,
+                  "pgdeactivate" => stat.pgdeactivate = value,
+                  "pglazyfree" => stat.pglazyfree = value,
+                  "pglazyfreed" => stat.pglazyfreed = value,
+                  "thp_fault_alloc" => stat.thp_fault_alloc = value,
+                  "thp_collapse_alloc" => stat.thp_collapse_alloc =
+  value,
+                  _ => {}
+              }
+          }
+
+          Ok(stat)
+      }
+
+      async fn get_io_stat(&self, cgroup: &CgroupPath) ->
+  Result<IOStat> {
+          let content = self.read_cgroup_file(cgroup,
+  "io.stat").await?;
+          let mut io_stat = IOStat::default();
+
+          for line in content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() < 3 {
+                  continue;
+              }
+
+              // 格式: "major:minor rbytes wbytes rios wios dbytes 
+  dios"
+              let mut rbytes = 0u64;
+              let mut wbytes = 0u64;
+              let mut rios = 0u64;
+              let mut wios = 0u64;
+
+              for (i, part) in parts.iter().enumerate().skip(1) {
+                  let value = part.parse::<u64>().unwrap_or(0);
+                  match i {
+                      1 => rbytes = value,
+                      2 => wbytes = value,
+                      3 => rios = value,
+                      4 => wios = value,
+                      _ => {}
+                  }
+              }
+
+              io_stat.rbytes += rbytes;
+              io_stat.wbytes += wbytes;
+              io_stat.rios += rios;
+              io_stat.wios += wios;
+          }
+
+          Ok(io_stat)
+      }
+
+      async fn get_pids(&self, cgroup: &CgroupPath) ->
+  Result<Vec<libc::pid_t>> {
+          let path =
+  self.get_cgroup_path(cgroup).join("cgroup.procs");
+          let content = async_fs::read_to_string(&path).await?;
+
+          let mut pids = Vec::new();
+          for line in content.lines() {
+              if let Ok(pid) = line.trim().parse::<libc::pid_t>() {
+                  pids.push(pid);
+              }
+          }
+
+          Ok(pids)
+      }
+
+      async fn get_children(&self, cgroup: &CgroupPath) ->
+  Result<Vec<String>> {
+          let path = self.get_cgroup_path(cgroup);
+          let mut children = Vec::new();
+
+          if let Ok(mut entries) = async_fs::read_dir(&path).await {
+              while let Ok(Some(entry)) = entries.next_entry().await
+   {
+                  if let Ok(file_type) = entry.file_type().await {
+                      if file_type.is_dir() {
+                          if let Some(name) =
+  entry.file_name().to_str() {
+                              if !name.starts_with('.') {
+                                  // 检查是否是cgroup子目录
+                                  let cgroup_path =
+  entry.path().join("cgroup.subtree_control");
+                                  if
+  async_fs::metadata(&cgroup_path).await.is_ok() {
+
+  children.push(name.to_string());
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+
+          Ok(children)
+      }
+
+      async fn is_populated(&self, cgroup: &CgroupPath) ->
+  Result<bool> {
+          let content = self.read_cgroup_file(cgroup,
+  "cgroup.events").await?;
+
+          for line in content.lines() {
+              let parts: Vec<&str> =
+  line.split_whitespace().collect();
+              if parts.len() == 2 && parts[0] == "populated" {
+                  return Ok(parts[1] == "1");
+              }
+          }
+
+          Ok(false)
+      }
+
+      async fn memory_reclaim(&self, cgroup: &CgroupPath, amount:
+  u64) -> Result<()> {
+          let amount_str = amount.to_string();
+          self.write_cgroup_file(cgroup, "memory.reclaim",
+  &amount_str).await
+      }
+
+      async fn list_cgroups(&self, pattern: &str) ->
+  Result<Vec<CgroupPath>> {
+          let mut result = Vec::new();
+          self._list_cgroups_recursive(&self.unified_mount, pattern,
+   &mut result).await?;
+          Ok(result)
+      }
+
+      async fn cgroup_exists(&self, cgroup: &CgroupPath) ->
+  Result<bool> {
+          let path = self.get_cgroup_path(cgroup);
+          Ok(async_fs::metadata(&path).await.is_ok())
+      }
+
+      async fn get_system_memory_pressure(&self) ->
+  Result<ResourcePressure> {
+          let content =
+  async_fs::read_to_string("/proc/pressure/memory").await?;
+
+          for line in content.lines() {
+              if line.starts_with("full") {
+                  let psi = PsiData::from_line(line)?;
+                  return Ok(psi.to_resource_pressure());
+              }
+          }
+
+          Err(OomdError::PressureUnavailable("system".to_string()))
+      }
+
+      async fn get_system_io_pressure(&self) ->
+  Result<ResourcePressure> {
+          let content =
+  async_fs::read_to_string("/proc/pressure/io").await?;
+
+          for line in content.lines() {
+              if line.starts_with("full") {
+                  let psi = PsiData::from_line(line)?;
+                  return Ok(psi.to_resource_pressure());
+              }
+          }
+
+          Err(OomdError::PressureUnavailable("system 
+  io".to_string()))
+      }
+  }
+
+  impl CgroupV2Interface {
+      async fn _list_cgroups_recursive(&self, base_path: &Path,
+  pattern: &str, result: &mut Vec<CgroupPath>) -> Result<()> {
+          let mut entries = async_fs::read_dir(base_path).await?;
+
+          while let Ok(Some(entry)) = entries.next_entry().await {
+              let path = entry.path();
+
+              if entry.file_type().await.map_or(false, |ft|
+  ft.is_dir()) {
+                  if let Some(name) = path.file_name().and_then(|n|
+  n.to_str()) {
+                      if !name.starts_with('.') {
+                          // 检查是否是cgroup目录
+                          let cgroup_file =
+  path.join("cgroup.controllers");
+                          if
+  async_fs::metadata(&cgroup_file).await.is_ok() {
+                              let relative_path =
+  path.strip_prefix(&self.unified_mount)
+                                  .map_err(|_|
+  OomdError::InvalidPath(path.clone()))?;
+
+                              if pattern.is_empty() ||
+  relative_path.to_string_lossy().contains(pattern) {
+                                  result.push(CgroupPath::new(
+                                      self.unified_mount.clone(),
+                                      relative_path.to_path_buf(),
+                                  )?);
+                              }
+
+                              // 递归搜索子目录
+                              self._list_cgroups_recursive(&path,
+  pattern, result).await?;
+                          }
+                      }
+                  }
+              }
+          }
+
+          Ok(())
+      }
+  }
+
+  现在我已经实现了cgroup v1和v2的完整接口。接下来你需要：
+
+  1. 添加依赖：在Cargo.toml中添加必要的依赖
+  2. 实现默认值：为MemoryStat和IOStat实现Default trait
+  3. 修复缓存类型转换问题
+
+  你想要我继续下一步，实现Cgroup管理器和版本检测吗？
+
+> 稍等, 你应该创建新文件 并将内容写入文件中 以免我进行复制, 
+  现在请你将你的上一条回复放到合适的文件中
+
+● 你说得对！我来创建新文件并将内容写入。首先创建必要的目录结构：
+
+● Bash(cd rust-oomd && mkdir -p src/core src/cgroup src/util src/plugins
+       src/config src/cli src/systemd)
+  ⎿  (No content)
+
+● 现在我来创建文件并写入内容：
+
+  1. 错误类型定义
+
+● Write(src/util/error.rs)
+  ⎿  Error writing file
+
+● Bash(cd rust-oomd && touch src/util/error.rs)
+  ⎿  Error: (eval):cd:1: 没有那个文件或目录: rust-oomd
+
+● Bash(touch rust-oomd/src/util/error.rs)
+  ⎿  Error: touch: 无法 touch 'rust-oomd/src/util/error.rs': 
+     没有那个文件或目录
+  ⎿  Interrupted by user
+
+! ls
+  ⎿  Cargo.toml
+     src
+
+! pwd
+  ⎿  /home/zippermonkey/Projects/oomd/rust-oomd
+
+> 首先你目前正在rust-oomd目录中, 你可以通过 pwd命令确认, 
+  你应该创建新文件 并将内容写入文件中 以免我进行复制,
+  现在请你将你的上一条回复放到合适的文件中
+
+● 明白了！我现在在rust-oomd目录下，让我创建新文件并写入内容：
+
+● Bash(mkdir -p src/core src/cgroup src/util src/plugins src/config
+      src/cli src/systemd)
+  ⎿  (No content)
+
+● Write(src/util/error.rs)
+  ⎿  Error writing file
+
+● Bash(touch src/util/error.rs)
+  ⎿  (No content)
+
+● Read(src/util/error.rs)
+  ⎿  Read 156 lines (ctrl+r to expand)
+
+● 我看到文件已经存在了，让我重新写入正确的内容：
+
+● Write(src/util/error.rs)
+  ⎿  Updated src/util/error.rs with 37 additions and 153 removals
+         1    use std::path::PathBuf;
+         2 -    use thiserror::Error;
+         2 +  use thiserror::Error;
+         3    
+         4 -    #[derive(Error, Debug)]
+         5 -    pub enum OomdError {
+         6 -        #[error("Cgroup not found: {0}")]
+         7 -        CgroupNotFound(String),
+         4 +  #[derive(Error, Debug)]
+         5 +  pub enum OomdError {
+         6 +      #[error("Cgroup not found: {0}")]
+         7 +      CgroupNotFound(String),
+         8 +      
+         9 +      #[error("Invalid cgroup path: {0}")]
+        10 +      InvalidPath(PathBuf),
+        11 +      
+        12 +      #[error("Unsupported cgroup version: {0:?}")]
+        13 +      UnsupportedVersion(super::cgroup::types::Cgroup
+           + Version),
+        14 +      
+        15 +      #[error("Pressure data unavailable for {0}")]
+        16 +      PressureUnavailable(String),
+        17 +      
+        18 +      #[error("IO error: {0}")]
+        19 +      Io(#[from] std::io::Error),
+        20 +      
+        21 +      #[error("Parse error: {0}")]
+        22 +      Parse(String),
+        23 +      
+        24 +      #[error("Nix error: {0}")]
+        25 +      Nix(#[from] nix::Error),
+        26 +      
+        27 +      #[error("JSON error: {0}")]
+        28 +      Json(#[from] serde_json::Error),
+        29 +      
+        30 +      #[error("Plugin error: {0}")]
+        31 +      Plugin(String),
+        32 +      
+        33 +      #[error("Config error: {0}")]
+        34 +      Config(String),
+        35 +      
+        36 +      #[error("System error: {0}")]
+        37 +      System(String),
+        38 +  }
+        39    
+        40 -        #[error("Invalid cgroup path: {0}")]
+        41 -        InvalidPath(PathBuf),
+        42 -  
+        43 -        #[error("Unsupported cgroup version: {0:?}")]
+        44 -        UnsupportedVersion(CgroupVersion),
+        45 -  
+        46 -        #[error("Pressure data unavailable for {0}")]
+        47 -        PressureUnavailable(String),
+        48 -  
+        49 -        #[error("IO error: {0}")]
+        50 -        Io(#[from] std::io::Error),
+        51 -  
+        52 -        #[error("Parse error: {0}")]
+        53 -        Parse(String),
+        54 -  
+        55 -        #[error("Nix error: {0}")]
+        56 -        Nix(#[from] nix::Error),
+        57 -  
+        58 -        #[error("JSON error: {0}")]
+        59 -        Json(#[from] serde_json::Error),
+        60 -  
+        61 -        #[error("Plugin error: {0}")]
+        62 -        Plugin(String),
+        63 -  
+        64 -        #[error("Config error: {0}")]
+        65 -        Config(String),
+        66 -  
+        67 -        #[error("System error: {0}")]
+        68 -        System(String),
+        69 -    }
+        70 -  
+        71 -    pub type Result<T> = std::result::Result<T, 
+           - OomdError>;
+        72 -  
+        73 -    src/core/types.rs - 核心数据类型
+        74 -  
+        75 -    use std::path::PathBuf;
+        76 -    use std::time::Duration;
+        77 -  
+        78 -    #[derive(Debug, Clone, PartialEq, Serialize, 
+           - Deserialize)]
+        79 -    pub struct ResourcePressure {
+        80 -        pub sec_10: f32,
+        81 -        pub sec_60: f32,
+        82 -        pub sec_300: f32,
+        83 -        pub total: Option<Duration>,
+        84 -    }
+        85 -  
+        86 -    impl ResourcePressure {
+        87 -        pub fn new(sec_10: f32, sec_60: f32, sec_300:
+           -  f32) -> Self {
+        88 -            Self {
+        89 -                sec_10,
+        90 -                sec_60,
+        91 -                sec_300,
+        92 -                total: None,
+        93 -            }
+        94 -        }
+        95 -  
+        96 -        pub fn with_total(mut self, total: Duration) 
+           - -> Self {
+        97 -            self.total = Some(total);
+        98 -            self
+        99 -        }
+       100 -  
+       101 -        /// 计算加权压力值 (10s权重最高)
+       102 -        pub fn weighted(&self) -> f32 {
+       103 -            self.sec_10 * 3.0 + self.sec_60 * 2.0 + 
+           - self.sec_300
+       104 -        }
+       105 -    }
+       106 -  
+       107 -    #[derive(Debug, Clone, PartialEq, Serialize, 
+           - Deserialize)]
+       108 -    pub struct IOStat {
+       109 -        pub rbytes: u64,
+       110 -        pub wbytes: u64,
+       111 -        pub rios: u64,
+       112 -        pub wios: u64,
+       113 -        pub dbytes: u64,
+       114 -        pub dios: u64,
+       115 -    }
+       116 -  
+       117 -    #[derive(Debug, Clone, PartialEq, Serialize, 
+           - Deserialize)]
+       118 -    pub struct MemoryStat {
+       119 -        pub anon: u64,
+       120 -        pub file: u64,
+       121 -        pub kernel_stack: u64,
+       122 -        pub slab: u64,
+       123 -        pub sock: u64,
+       124 -        pub shmem: u64,
+       125 -        pub file_mapped: u64,
+       126 -        pub file_dirty: u64,
+       127 -        pub file_writeback: u64,
+       128 -        pub anon_thp: u64,
+       129 -        pub inactive_anon: u64,
+       130 -        pub active_anon: u64,
+       131 -        pub inactive_file: u64,
+       132 -        pub active_file: u64,
+       133 -        pub unevictable: u64,
+       134 -        pub slab_reclaimable: u64,
+       135 -        pub slab_unreclaimable: u64,
+       136 -        pub pgfault: u64,
+       137 -        pub pgmajfault: u64,
+       138 -        pub workingset_refault: u64,
+       139 -        pub workingset_activate: u64,
+       140 -        pub workingset_nodereclaim: u64,
+       141 -        pub pgrefill: u64,
+       142 -        pub pgscan: u64,
+       143 -        pub pgsteal: u64,
+       144 -        pub pgactivate: u64,
+       145 -        pub pgdeactivate: u64,
+       146 -        pub pglazyfree: u64,
+       147 -        pub pglazyfreed: u64,
+       148 -        pub thp_fault_alloc: u64,
+       149 -        pub thp_collapse_alloc: u64,
+       150 -    }
+       151 -  
+       152 -    #[derive(Debug, Clone, PartialEq, Serialize, 
+           - Deserialize)]
+       153 -    pub struct SystemContext {
+       154 -        pub swaptotal: u64,
+       155 -        pub swapused: u64,
+       156 -        pub swappiness: i32,
+       157 -        pub vmstat: std::collections::HashMap<String,
+           -  i64>,
+       158 -        pub swapout_bps: f64,
+       159 -        pub swapout_bps_60: f64,
+       160 -        pub swapout_bps_300: f64,
+       161 -    }
+       162 -  
+       163 -    #[derive(Debug, Clone, Copy, PartialEq, 
+           - Serialize, Deserialize)]
+       164 -    pub enum KillPreference {
+       165 -        Prefer = 1,
+       166 -        Normal = 0,
+       167 -        Avoid = -1,
+       168 -    }
+       169 -  
+       170 -    #[derive(Debug, Clone, PartialEq, Serialize, 
+           - Deserialize)]
+       171 -    pub struct ProcessInfo {
+       172 -        pub pid: libc::pid_t,
+       173 -        pub comm: String,
+       174 -        pub memory_usage: u64,
+       175 -        pub cpu_usage: f32,
+       176 -        pub oom_score: i32,
+       177 -        pub oom_score_adj: i32,
+       178 -    }
+       179 -  
+       180 -    #[derive(Debug, Clone, PartialEq, Serialize, 
+           - Deserialize)]
+       181 -    pub enum PluginRet {
+       182 -        Continue,  // 继续执行下一个插件
+       183 -        Stop,      // 停止执行当前链
+       184 -        Async,     // 异步执行
+       185 -    }
+       186 -  
+       187 -    
+        40   \ No newline at end of file
+        41 +  pub type Result<T> = std::result::Result<T, 
+           + OomdError>;
+        42   \ No newline at end of file
+
+● 现在创建核心类型定义文件：
+
+● Bash(touch src/core/types.rs)
+  ⎿  (No content)
+
+● Read(src/core/types.rs)
+  ⎿  Read 1 line (ctrl+r to expand)
+
+● Write(src/core/types.rs)
+  ⎿  Wrote 163 lines to src/core/types.rs                      
+     use std::path::PathBuf;
+     use std::time::Duration;
+     use serde::{Serialize, Deserialize};
+     #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+     pub struct ResourcePressure {
+         pub sec_10: f32,
+         pub sec_60: f32,
+         pub sec_300: f32,
+         pub total: Option<Duration>,
+     … +153 lines (ctrl+r to expand)
+
+● 现在创建cgroup相关类型：
+
+● Bash(touch src/cgroup/types.rs)
+  ⎿  (No content)
+
+● Read(src/cgroup/types.rs)
+  ⎿  Read 1 line (ctrl+r to expand)
+
+● Write(src/cgroup/types.rs)
+  ⎿  Wrote 144 lines to src/cgroup/types.rs                    
+     use std::path::PathBuf;
+     use serde::{Serialize, Deserialize};
+     use super::core::types::ResourcePressure;
+     #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+     pub enum CgroupVersion {
+         /// Cgroup v1 - 多个挂载点
+         V1 {
+             memory: PathBuf,
+             cpu: PathBuf,
+     … +134 lines (ctrl+r to expand)
+
+● 现在创建cgroup接口定义：
+
+● Bash(touch src/cgroup/interface.rs)
+  ⎿  (No content)
+
+● Read(src/cgroup/interface.rs)
+  ⎿  Read 1 line (ctrl+r to expand)
+
+● Write(src/cgroup/interface.rs)
+  ⎿  Wrote 130 lines to src/cgroup/interface.rs
+     use super::types::*;
+     use super::core::types::*;
+     use async_trait::async_trait;
+     #[async_trait]
+     pub trait CgroupInterface: Send + Sync {
+         /// 获取cgroup版本
+         fn version(&self) -> &CgroupVersion;
+         /// 获取内存压力
+     … +120 lines (ctrl+r to expand)
+
+● 现在创建cgroup v1实现：
+
+● Bash(touch src/cgroup/v1.rs)
+  ⎿  (No content)
+
+● Read(src/cgroup/v1.rs)
+  ⎿  Read 1 line (ctrl+r to expand)
+
+● 由于内容太长，我将分几部分写入v1.rs文件：
+
+● Write(src/cgroup/v1.rs)
+  ⎿  Wrote 186 lines to src/cgroup/v1.rs
+     use super::interface::*;
+     use super::types::*;
+     use super::core::types::*;
+     use nix::sys::statfs;
+     use std::collections::HashMap;
+     use std::path::{Path, PathBuf};
+     use std::fs;
+     use std::os::unix::fs::MetadataExt;
+     use tokio::fs as async_fs;
+     use tokio::io::AsyncBufReadExt;
+     … +176 lines (ctrl+r to expand)
+
+● 现在继续添加v1实现的trait实现部分：
+
+● Read(src/cgroup/v1.rs)
+  ⎿  Read 10 lines (ctrl+r to expand)
+
+● 让我继续添加trait实现部分到v1.rs：
+
+● Update(src/cgroup/v1.rs)
+  ⎿  Error editing file
+
+● 让我直接添加trait实现部分：
+
+● Read(src/cgroup/v1.rs)
+  ⎿  Read 5 lines (ctrl+r to expand)
+
+● 让我继续添加trait实现到文件末尾：
+
+● Update(src/cgroup/v1.rs)
+  ⎿  Error editing file
+
